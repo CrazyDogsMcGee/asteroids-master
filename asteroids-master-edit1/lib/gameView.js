@@ -21,8 +21,8 @@
 
     GameView.prototype.bindKeyHandlers = function () {
       var ship = this.game.ship
-      key('up', function(){ship.power([0,-2])} ); 
-      key('down', function(){ship.power([0,2])} ); 
+      key('up', function(){ship.power([0,-2])} ); //probably have to modify power to also change the orientation
+      key('down', function(){ship.power([0,2])} );
       key('left', function(){ship.power([-2,0])} );
       key('right', function(){ship.power([2,0])} );
       key('space', function() {ship.fireBullet()} );

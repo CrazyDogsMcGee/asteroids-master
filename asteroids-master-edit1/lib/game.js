@@ -9,24 +9,24 @@
     this.bullets = [];
     this.bkg = new Image(); //background Image()? Is this javascript or HTML5?
     this.bkg.onload = function () { //callback function after the resource is fetched
-        ctx.drawImage(this.bkg,-900,-500);
+        ctx.drawImage(this.bkg,-900,-500); //Does this onload need to be called every time? or just once
     };
-    this.bkg.src = 'lib/animal-testing-in-space-nasa1.jpg'; 
+    this.bkg.src = 'lib/animal-testing-in-space-nasa1.jpg'; //fetch resource
     this.ship = new Asteroids.Ship( {
         vel: [0, 0],
         pos: Game.randomPosition(),
-        game: this,
+        game: this
     });
   };
 
   Game.DIM_X = 1200;
   Game.DIM_Y = 600;
-  Game.NUM_ASTEROIDS = 1;
+  Game.NUM_ASTEROIDS = 0;
 
   Game.prototype.addAsteroids = function () { //this doesn't regenerate asteroids should be "addInitialAsteroids"
       var _game = this
       for (var i = 0; i < Game.NUM_ASTEROIDS; i++) {
-        this.asteroids.push(new Asteroid( { pos: Game.randomPosition(), game: _game}));
+      this.asteroids.push(new Asteroid( { pos: Game.randomPosition(), game: _game } ));
       }
   };
 
@@ -78,6 +78,7 @@
   };
 
   Game.prototype.remove = function (object) { //remove object from game
+    console.log(object.constructor)
     var obj_array;
     if (object.constructor === Asteroids.Asteroid) {
       obj_array = this.asteroids;

@@ -9,20 +9,19 @@
         this.radius = argObj['radius'];
         this.color = argObj['color'];
         this.game = argObj['game'];
-        //this.imgComp = argObj['imgComp']
-        this.hitboxPos = this.hitboxCompensation(this.pos.slice(),this.imgComp);
+        // this.hitboxPos = this.hitboxCompensation(this.pos,argObj['imgComp']);
     };
 
-    MovingObject.prototype.draw = function (ctx) { 
-        ctx.fillStyle = this.color; 
-        ctx.beginPath(); 
+    MovingObject.prototype.draw = function (ctx) { //function actually draws the shapes
+        ctx.fillStyle = this.color; //this chooses the style
+        ctx.beginPath(); //initialize drawing? Seriously, this seems superfluous
 
         ctx.arc(
           this.pos[0], 
           this.pos[1],
           this.radius,
           0,
-          2 * Math.PI, 
+          2 * Math.PI, //already knows it closed?
           false
         );
 
@@ -32,11 +31,8 @@
     MovingObject.prototype.move = function () {
         this.pos[0] += this.vel[0];
         this.pos[1] += this.vel[1];
-        this.hitboxPos[0] += this.vel[0];
-        this.hitboxPos[1] += this.vel[1];
         if (this.isWrappable === true) { //depends on wrappable.
             this.pos = this.game.wrap(this.pos);
-            this.hitboxPos = this.hitboxCompensation(this.pos.slice(),this.imgComp);
         } else {
             if (this.game.isOutOfBounds(this.pos)) {
                 this.game.remove(this);
@@ -45,8 +41,8 @@
     };
 
     MovingObject.prototype.isCollidedWith = function (otherObject) {
-        var x_dist = Math.abs(this.hitboxPos[0] - otherObject.hitboxPos[0]); //needs to be changed to refer to hitbox
-        var y_dist = Math.abs(this.hitboxPos[1] - otherObject.hitboxPos[1]);
+        var x_dist = Math.abs(this.pos[0] - otherObject.pos[0]); //needs to be changed to refer to hitbox
+        var y_dist = Math.abs(this.pos[1] - otherObject.pos[1]);
         var dist = Math.floor(Math.sqrt(Math.pow(x_dist,2) + Math.pow(y_dist,2)));
         var radii_distance = this.radius + otherObject.radius;
         return (dist <= radii_distance)
