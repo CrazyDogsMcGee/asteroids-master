@@ -1,0 +1,37 @@
+Ship
+//* placing firing point (DONE)
+//* Making hitbox based on sprite center (DONE)
+//* initial acceleration issue
+//* Smooth out braking
+//* possibly fix drawing point? Might have to create translate drawing method. (for proper processing of wrap function)
+
+Game (in charge of object representations, by necessity, contains all draw objects too.)
+* score
+//* change random position?
+
+GameView (in)
+
+Asteroids
+* replace with image (DONE)
+* bounce off each other
+	*simplest case would be to just make everything its negative inverse
+	*for two objects with one or more velocity components in common however..this would not stand (Just do neg inverse for now)
+		* EX: NE ([+,-]) and SW ([-,+]) colliding should go SE and NE (respectively)
+		* EX: NE ([+,-]) and NE colliding should go to one NE and the other SE.
+		* KEEP IN MIND: IN THIS CASE, completely positive motion is southeast (NW corner is origin, SE is positive motion)
+* make multiple kinds of asteroids
+
+bullet
+*make them faster
+	*need to set baseline speed of 10. How to compensate for negative/positve?
+*make spawn point at least correspond with ship orientation if stationary
+*Make into sprite (DONE);
+
+Moving object
+* refactor - all moving objects should have a hitbox position instead of just referencing their draw position (almost! )
+* the draw position should be considered different...unless I can get the shift draw position to work...
+* look for all constructor methods, need to include image compensation parameter manually
+	*Larger asteroids will probably be a separate class then?
+	* NO JUST DIFFERENT COMPENSATION, RADIUS, and SPRITE
+* to test proper collision, need to make dummy circle sprites
+* Need to refactor draw method not to use circle anymore and only to use sprite.
