@@ -76,12 +76,9 @@
         
         var adjusted_bullet_compensation = [this.bullet_compensation_radius[0]*Math.cos(this.orientationRadians()),this.bullet_compensation_radius[1]*Math.sin(this.orientationRadians())];
         var firing_pos = [ship_midpoint[0]+adjusted_bullet_compensation[0],ship_midpoint[1]+adjusted_bullet_compensation[1]];
-        
-        //use img_center + a vector quantity instead
-        
+      
         this.game.bullets.push(new Asteroids.Bullet( {
-//             vel: [2*Math.cos(this.orientationRadians),2*Math.sin(this.orientationRadians)]
-            vel: [1,1],
+            vel: [10*Math.cos(this.orientationRadians()),10*Math.sin(this.orientationRadians())],
             pos: firing_pos,
             color: "#FF69B4",
             game: this.game,
@@ -97,9 +94,10 @@
     };
 
     Ship.deccelerateComp = function (velComp) { //needs to be fixed, one is too big because velocities can be fractional now
-      if (velComp === 0) {
+      if ((velComp === 0) || (Math.abs(velComp) < 1)) {
         return 0;
       }
+      
       return  (-1 * (velComp/(Math.abs(velComp)))) + velComp;
     };
 
