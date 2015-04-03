@@ -21,7 +21,7 @@
 
   Game.DIM_X = 1200;
   Game.DIM_Y = 600;
-  Game.NUM_ASTEROIDS = 1;
+  Game.NUM_ASTEROIDS = 0;
 
   Game.prototype.addAsteroids = function () { //this doesn't regenerate asteroids should be "addInitialAsteroids"
       var _game = this
@@ -78,7 +78,6 @@
   };
 
   Game.prototype.remove = function (object) { //remove object from game
-    console.log(object.constructor)
     var obj_array;
     if (object.constructor === Asteroids.Asteroid) {
       obj_array = this.asteroids;

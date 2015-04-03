@@ -1,0 +1,9 @@
+After the sprite starts moving, both components of velocity keep increasing, meaning that 0 is not being detected well...
+
+velocity keeps increasing when it shouldn't. being oriented in one direction SHOULD give a sin/cos of 0, but it doesnt...
+
+Problem with bullets...I cant just multiply on the position with the orientation because it's not a vector...I'll have to create a new vector
+based aroud the center or the drawing point that changes depending on the orientation
+
+the position of my image is always its upper left-hand corner.
+Something I could do instead is take the "center" of the image and then have a radius vector that I oculd apply the angle to.

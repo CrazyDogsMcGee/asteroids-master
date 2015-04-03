@@ -21,13 +21,22 @@
 
     Asteroids.Util.inherits.call(Ship, Asteroids.MovingObject); //gives prototype methods
 
+    Ship.prototype.orientationRadians = function () {
+      return this.orientation * Ship.TO_RADIANS
+    },
+      
+    Ship.prototype.reset = function () {
+      this.orientation = 0;
+      this.vel = [0,0];
+    }
+  
     Ship.prototype.draw = function () {
         ctx.save();
       
         ctx.translate(this.pos[0],this.pos[1]); //move the sprite to where you want, the entire context must be moved for the rotation to occur
         ctx.translate(this.img_center[0],this.img_center[1]); //center the rotation
       
-        ctx.rotate(this.orientation * Ship.TO_RADIANS);
+        ctx.rotate(this.orientation*Ship.TO_RADIANS);
 
         ctx.drawImage(this.sprite, -this.img_center[0], -this.img_center[1]);
         ctx.restore();
@@ -38,20 +47,22 @@
         this.vel = [0,0];
     };
 
-    Ship.prototype.power = function (impulse) {
+    Ship.prototype.power = function (impulse) { //use radians instead
+        var orientation_radians = Ship.TO_RADIANS * this.orientation
+      
         if (Math.abs(this.vel[0]) < 10) {
-          this.vel[0] += impulse[0];
+          this.vel[0] += Math.cos(orientation_radians)*impulse[0]; //cos is x (0/h)
         }
         if (Math.abs(this.vel[1]) < 10) {
-          this.vel[1] += impulse[1];
+          this.vel[1] += Math.sin(orientation_radians)*impulse[1]; //sin is y (a/h)
         }
     };
   
     Ship.prototype.rotate = function (n) {
-      if (this.orientation + n > 360) {
+      if (this.orientation + n > 361) {
         this.orientation -= 360
         this.orientation += n
-      } else if  (this.orientation + n < 0){
+      } else if  (this.orientation + n < -1){
         this.orientation += 360
         this.orientation += n
       } else {
@@ -61,11 +72,16 @@
 
     Ship.prototype.fireBullet = function () {
         var ship_position = this.pos.slice() //
-        var center_pos = [old_pos[0]+this.bullet_compensation[0],old_pos[1]+this.bullet_compensation[1]] //[x,y] - should refactor to property
+        var firing_pos = [ship_position[0]+this.bullet_compensation[0],ship_position[1]+this.bullet_compensation[1]] //[x,y] - should refactor to property
+        var rotated_firing_pos = [firing_pos[0]*Math.cos(this.orientationRadians()),firing_pos[1]*Math.sin(this.orientationRadians())]
+        
+        console.log(this.pos)
+        //use img_center + a vector quantity instead
+        
         this.game.bullets.push(new Asteroids.Bullet( {
-            vel: [this.vel[0]*2,this.vel[1]*2],
-            pos: center_pos, //this will need some tweaking. It needs to fire from Shuma's Eye, currently it'd fire from the upper left of his sprite
-            //also, it may need to account for Shuma's orientation.
+//             vel: [2*Math.cos(this.orientationRadians),2*Math.sin(this.orientationRadians)]
+            vel: [2,2],
+            pos: firing_pos,
             color: "#FF69B4",
             game: this.game,
             radius: 3
@@ -79,7 +95,7 @@
 
     };
 
-    Ship.deccelerateComp = function (velComp) { //class method utility - does not need access to "this"
+    Ship.deccelerateComp = function (velComp) { //needs to be fixed, one is too big because velocities can be fractional now
       if (velComp === 0) {
         return 0;
       }
