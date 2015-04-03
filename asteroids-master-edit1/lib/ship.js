@@ -7,12 +7,12 @@
         Asteroids.MovingObject.call(this, shipArgs); //sets inerherited properties on ship object
         //this.orientation = //http://creativejs.com/2012/01/day-10-drawing-rotated-images-into-canvas/
         this.sprite = new Image();
-        //this.firingPoint =
         this.sprite.onload = function () { //callback function after the resource is fetched
             this.draw
         }; //this is technically a listener?
-        this.sprite.src = 'lib/flying-saucer-animated-6.gif'; //needs full path, its being invoked from index.html
+        this.sprite.src = 'lib/ShumaGorath.png'; //needs full path, its being invoked from index.html
         this.radius = Ship.RADIUS; //needed for collision detection
+        this.bullet_compensation = [125,55];
     }; //where do the attributes get set? In the new object itself.
 
     Ship.RADIUS = 15;
@@ -43,7 +43,7 @@
 
     Ship.prototype.fireBullet = function () {
         var old_pos = this.pos.slice()
-        var center_pos = [old_pos[0]+42,old_pos[1]+30] //[x,y]
+        var center_pos = [old_pos[0]+this.bullet_compensation[0],old_pos[1]+this.bullet_compensation[1]] //[x,y] - should refactor to property
         this.game.bullets.push(new Asteroids.Bullet( {
             vel: [this.vel[0]*2,this.vel[1]*2],
             pos: center_pos, //this will need some tweaking. It needs to fire from Shuma's Eye, currently it'd fire from the upper left of his sprite

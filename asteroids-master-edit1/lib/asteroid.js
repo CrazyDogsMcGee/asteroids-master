@@ -18,8 +18,10 @@
   Asteroid.prototype.collideWith = function (otherObject) { //just set position the same as bullet exit for ship collision
       if (otherObject.constructor === Asteroids.Ship) {
         otherObject.relocate();
-      } //should include another elseif for bouncing.
+      } 
   };
+  
+  Asteroid.prototype.draw
 
 
 })();

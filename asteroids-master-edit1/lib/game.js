@@ -21,7 +21,7 @@
 
   Game.DIM_X = 1200;
   Game.DIM_Y = 600;
-  Game.NUM_ASTEROIDS = 0;
+  Game.NUM_ASTEROIDS = 1;
 
   Game.prototype.addAsteroids = function () { //this doesn't regenerate asteroids should be "addInitialAsteroids"
       var _game = this
