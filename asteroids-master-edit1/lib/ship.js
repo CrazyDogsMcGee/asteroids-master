@@ -12,8 +12,8 @@
         }; //this is technically a listener?
         this.sprite.src = 'lib/ShumaGorath.png'; //needs full path, its being invoked from index.html
         this.radius = Ship.RADIUS; //needed for collision detection
-        this.bullet_compensation = [125,55];
-        this.img_center = [100,50]
+        this.bullet_compensation_radius = [28,28];
+        this.img_center = [104,54]
     }; //where do the attributes get set? In the new object itself.
 
     Ship.RADIUS = 15;
@@ -71,16 +71,17 @@
     }
 
     Ship.prototype.fireBullet = function () {
-        var ship_position = this.pos.slice() //
-        var firing_pos = [ship_position[0]+this.bullet_compensation[0],ship_position[1]+this.bullet_compensation[1]] //[x,y] - should refactor to property
-        var rotated_firing_pos = [firing_pos[0]*Math.cos(this.orientationRadians()),firing_pos[1]*Math.sin(this.orientationRadians())]
+        var ship_position = this.pos.slice()
+        var ship_midpoint = [ship_position[0]+this.img_center[0],ship_position[1]+this.img_center[1]];
         
-        console.log(this.pos)
+        var adjusted_bullet_compensation = [this.bullet_compensation_radius[0]*Math.cos(this.orientationRadians()),this.bullet_compensation_radius[1]*Math.sin(this.orientationRadians())];
+        var firing_pos = [ship_midpoint[0]+adjusted_bullet_compensation[0],ship_midpoint[1]+adjusted_bullet_compensation[1]];
+        
         //use img_center + a vector quantity instead
         
         this.game.bullets.push(new Asteroids.Bullet( {
 //             vel: [2*Math.cos(this.orientationRadians),2*Math.sin(this.orientationRadians)]
-            vel: [2,2],
+            vel: [1,1],
             pos: firing_pos,
             color: "#FF69B4",
             game: this.game,
