@@ -78,7 +78,7 @@
         var firing_pos = [ship_midpoint[0]+adjusted_bullet_compensation[0],ship_midpoint[1]+adjusted_bullet_compensation[1]];
       
         this.game.bullets.push(new Asteroids.Bullet( {
-            vel: [10*Math.cos(this.orientationRadians()),10*Math.sin(this.orientationRadians())],
+            vel: [15*Math.cos(this.orientationRadians()),15*Math.sin(this.orientationRadians())],
             pos: firing_pos,
             color: "#FF69B4",
             game: this.game,

@@ -9,10 +9,15 @@
     };
 
     GameView.prototype.start = function () {
-        this.bindKeyHandlers();
+        //this.bindKeyHandlers();
+      
+        var game_view = this
+        var ship = this.game.ship
+        
         setInterval( function () {
-            this.game.step();
-            this.game.draw(this.ctx);
+            game.step();
+            game.draw(ctx);
+            game_view.detectMultiKeyHandlers(ship);
         }, 20);
         setInterval( function () {
             this.game.ship.deccelerate();
@@ -20,16 +25,30 @@
     };
 
     GameView.prototype.bindKeyHandlers = function () {
+      debugger
       var ship = this.game.ship
       key('up', function () {ship.power([1,1])} ); //probably have to modify power to also change the orientation
-//       key('down', function () {ship.power([0,2])} );
-//       key('left', function () {ship.power([-2,0])} );
-//       key('right', function () {ship.power([2,0])} );
+      key('down', function () {ship.power([-1,-1])} );
+      
+      key('up+left', function () { //need something like this...
+        ship.power([1,1]);
+        ship.rotate(-5);
+      });
+      
       key('space', function () {ship.fireBullet()} );
-      key('a', function () {ship.rotate(-5)} );
-      key('d', function () {ship.rotate(5)} );
+      key('left', function () {ship.rotate(-5)} );
+      key('right', function () {ship.rotate(5)} );
       key('s', function () {ship.reset()} );
     };
+  
+    GameView.prototype.detectMultiKeyHandlers = function (ship) {
+      if(key.isPressed("left")) {ship.rotate(-5)};
+      if(key.isPressed("right")) {ship.rotate(5)};
+      if(key.isPressed("up")) {ship.power([1,1])};
+      if(key.isPressed("down")) {ship.power([-1,-1])};
+      if(key.isPressed("space")) {ship.fireBullet()};
+      if(key.isPressed("s")) {ship.reset()};
+    }
 
 
 })();

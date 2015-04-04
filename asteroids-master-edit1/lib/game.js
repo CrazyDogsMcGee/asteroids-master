@@ -7,11 +7,14 @@
     this.asteroids = [];
     this.addAsteroids();
     this.bullets = [];
+    
     this.bkg = new Image(); //background Image()? Is this javascript or HTML5?
     this.bkg.onload = function () { //callback function after the resource is fetched
-        ctx.drawImage(this.bkg,-900,-500); //Does this onload need to be called every time? or just once
-    };
-    this.bkg.src = 'lib/animal-testing-in-space-nasa1.jpg'; //fetch resource
+      console.log(this.bkg);
+      ctx.drawImage(this.bkg,0,0); //Does this onload need to be called every time? or just once
+    }.bind(this);
+    this.bkg.src = 'http://fc02.deviantart.net/fs70/f/2010/142/d/e/Spiral_Anim_111_by_LordSqueak.gif';
+    
     this.ship = new Asteroids.Ship( {
         vel: [0, 0],
         pos: Game.randomPosition(),
@@ -33,9 +36,9 @@
   Game.prototype.draw = function (ctx) {
       var objects = this.allObjects(); //refers to game, all objects
       ctx.clearRect(0, 0, Game.DIM_X, Game.DIM_Y);
-      ctx.drawImage(this.bkg,-900,-500); //I guess it happens once in instantiation, and doesn't need to occur again
+      ctx.drawImage(this.bkg,0,0);
       for (var i = 0; i < objects.length; i++) {
-        objects[i].draw(ctx); //draw is an instance method of each moving Object
+        objects[i].draw(ctx);
       }
   };
 

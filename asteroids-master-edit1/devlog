@@ -7,3 +7,6 @@ based aroud the center or the drawing point that changes depending on the orient
 
 the position of my image is always its upper left-hand corner.
 Something I could do instead is take the "center" of the image and then have a radius vector that I oculd apply the angle to.
+
+The background image callback is not being called at all. I can't reposition it at all.
+
