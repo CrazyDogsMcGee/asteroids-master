@@ -10,3 +10,6 @@ Something I could do instead is take the "center" of the image and then have a r
 
 The background image callback is not being called at all. I can't reposition it at all.
 
+http://www.williammalone.com/articles/create-html5-canvas-javascript-sprite-animation/
+
+TO-DO: how to spawn asteroids from the sides? Expand canvas but limit field of view...

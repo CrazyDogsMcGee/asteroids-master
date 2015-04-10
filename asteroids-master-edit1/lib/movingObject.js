@@ -56,9 +56,9 @@
         return [hitbox_x,hitbox_y]
     }
 
-    MovingObject.prototype.collideWith = function (otherObject) {
-        // game.remove(otherObject);
-        // game.remove(this);
+    MovingObject.prototype.collideWith = function (otherObject) { //default ship behavior...
+//         game.remove(otherObject);
+//         game.remove(this);
     };
 
 })();

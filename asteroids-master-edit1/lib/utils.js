@@ -1,10 +1,10 @@
 (function () { //
     if (typeof window.Asteroids === "undefined") {
-        window.Asteroids = {}; //namespaces everything to not conflict with extensions 
+        window.Asteroids = {};
     }
 
     if (typeof window.Asteroids.Util === "undefined") {
-        window.Asteroids.Util = {}; //extra namespace
+        window.Asteroids.Util = {};
     }
 
     Asteroids.Util.inherits = function (ParentClass) {

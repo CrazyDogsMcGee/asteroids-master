@@ -3,20 +3,23 @@
         window.Asteroids = {};
       }
 
-    var Ship = Asteroids.Ship = function (shipArgs) { //constructor function
-        Asteroids.MovingObject.call(this, shipArgs); //sets inerherited properties on ship object
-        this.orientation = 0//http://creativejs.com/2012/01/day-10-drawing-rotated-images-into-canvas/
+    var Ship = Asteroids.Ship = function (shipArgs) {
+        Asteroids.MovingObject.call(this, shipArgs); 
+        this.orientation = 0
         this.sprite = new Image();
-        this.sprite.onload = function () { //callback function after the resource is fetched
+        this.sprite.onload = function () {
             this.draw
-        }; //this is technically a listener?
-        this.sprite.src = 'lib/ShumaGorath.png'; //needs full path, its being invoked from index.html
-        this.radius = Ship.RADIUS; //needed for collision detection
+        };
+        this.sprite.src = 'lib/ShumaGorath.png'; 
+        this.radius = 50; 
         this.bullet_compensation_radius = [28,28];
         this.img_center = [104,54]
-    }; //where do the attributes get set? In the new object itself.
+        this.center = function () {
+          return [this.pos[0]+104,this.pos[1]+54]
+        } //THIS IS NOT BEING MOVED
+    };
 
-    Ship.RADIUS = 15;
+    //Ship.RADIUS = 25;
     Ship.TO_RADIANS = Math.PI / 180;
 
     Asteroids.Util.inherits.call(Ship, Asteroids.MovingObject); //gives prototype methods

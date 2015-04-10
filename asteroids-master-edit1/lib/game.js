@@ -13,7 +13,7 @@
       console.log(this.bkg);
       ctx.drawImage(this.bkg,0,0); //Does this onload need to be called every time? or just once
     }.bind(this);
-    this.bkg.src = 'http://fc02.deviantart.net/fs70/f/2010/142/d/e/Spiral_Anim_111_by_LordSqueak.gif';
+    this.bkg.src = 'lib/stopchaos_dimension.jpg';
     
     this.ship = new Asteroids.Ship( {
         vel: [0, 0],
@@ -23,8 +23,8 @@
   };
 
   Game.DIM_X = 1200;
-  Game.DIM_Y = 600;
-  Game.NUM_ASTEROIDS = 0;
+  Game.DIM_Y = 800;
+  Game.NUM_ASTEROIDS = 10;
 
   Game.prototype.addAsteroids = function () { //this doesn't regenerate asteroids should be "addInitialAsteroids"
       var _game = this
@@ -68,8 +68,8 @@
     var objects = this.allObjects();
     for (var i = 0; i < objects.length; i++) {
       for (var j = 0; j < objects.length; j++) {
-        if ((i != j) && (objects[i].isCollidedWith(objects[j]))) {
-          objects[i].collideWith(objects[j]); //run this if isCollidedWith is true. Could be turned into a callback instead
+        if ( (i != j) && (objects[i].isCollidedWith(objects[j])) ) {
+          objects[i].collideWith(objects[j]);
         }
       }
     }

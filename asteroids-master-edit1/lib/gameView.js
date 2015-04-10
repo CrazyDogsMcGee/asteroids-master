@@ -21,7 +21,7 @@
         }, 20);
         setInterval( function () {
             this.game.ship.deccelerate();
-        }, 500);
+        }, 100);
     };
 
     GameView.prototype.bindKeyHandlers = function () {
