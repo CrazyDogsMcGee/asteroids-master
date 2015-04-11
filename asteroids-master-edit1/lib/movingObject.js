@@ -9,7 +9,6 @@
         this.radius = argObj['radius'];
         this.color = argObj['color'];
         this.game = argObj['game'];
-        // this.hitbox_center = this.hitboxCompensation(this.pos,argObj['imgComp']);
     };
 
     MovingObject.prototype.draw = function (ctx) { //function actually draws the shapes

@@ -9,8 +9,6 @@
     };
 
     GameView.prototype.start = function () {
-        //this.bindKeyHandlers();
-      
         var game_view = this
         var ship = this.game.ship
         

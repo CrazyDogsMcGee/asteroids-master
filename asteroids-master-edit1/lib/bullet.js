@@ -22,7 +22,6 @@
 //     };
 
     Bullet.prototype.collideWith = function (otherObject) {
-        
         if (otherObject.constructor === Asteroids.Asteroid) {
             this.game.remove(otherObject);
             this.game.remove(this);

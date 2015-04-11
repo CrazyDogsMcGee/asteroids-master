@@ -20,6 +20,11 @@
     Asteroids.Util.randomVec = function (length) { //magnitude
         var x = Math.floor(Math.random() * length);
         var y = Math.floor(Math.random() * length);
+
+        if (x == 0 || y == 0) {
+          return Asteroids.Util.randomVec(length);
+        }
+
         return [x, y];
     };
 

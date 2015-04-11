@@ -7,7 +7,7 @@
       Asteroids.MovingObject.call(this, asterArgs); // calls parent constructor with pos, game, gives methods until they are overwritten
       this.vel = Asteroids.Util.randomVec(5);
       this.color = asterArgs["color"] || Asteroid.COLOR;
-      this.radius = 40 //asterArgs["radius"] || Asteroid.RADIUS;
+      this.radius = 40
       this.sprite = new Image();
       this.sprite.onload = function () {
         this.draw
@@ -27,7 +27,19 @@
   Asteroid.prototype.collideWith = function (otherObject) { //just set position the same as bullet exit for ship collision
     if (otherObject.constructor === Asteroids.Ship) {
       otherObject.relocate();
-    } 
+    } else if (otherObject.constructor === Asteroids.Asteroid) {
+
+      if (!this._recent_change) {
+      this._recent_change = true
+      otherObject._recent_change = true
+      setTimeout(function () {
+        this._recent_change = false;
+        otherObject._recent_change = false;
+      }.bind(this), 500)
+      this.vel = [this.vel[0]*-1, this.vel[1]*-1];
+      otherObject.vel = [otherObject.vel[0]*-1, otherObject.vel[1]*-1];
+      }
+    }
   };
   
   Asteroid.prototype.isCollidedWith = function (otherObject) {
