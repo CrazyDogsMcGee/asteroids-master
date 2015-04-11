@@ -17,6 +17,8 @@
         this.center = function () {
           return [this.pos[0]+104,this.pos[1]+54]
         }
+        this._can_fire = true
+        this._firing_rate = 500;
     };
 
     //Ship.RADIUS = 25;
@@ -74,11 +76,7 @@
     }
 
     Ship.prototype.fireBullet = function () {
-        setTimeout( function () {
-          this.can_fire = true;
-        }, 10)
-      
-        if (this.can_fire) {
+        if (this._can_fire) {
           var ship_position = this.pos.slice()
           var ship_midpoint = [ship_position[0]+this.img_center[0],ship_position[1]+this.img_center[1]];
 
@@ -92,7 +90,12 @@
               game: this.game,
               radius: 3
           }));
-          this.can_fire = false
+
+          this._can_fire = false;
+
+          setTimeout( function () {
+          this._can_fire = true;
+          }.bind(this), this._firing_rate)
         }
     };
 

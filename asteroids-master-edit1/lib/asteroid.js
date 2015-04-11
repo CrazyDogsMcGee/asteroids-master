@@ -5,7 +5,7 @@
   
   Asteroid = Asteroids.Asteroid = function (asterArgs) { // takes in pos, game)
       Asteroids.MovingObject.call(this, asterArgs); // calls parent constructor with pos, game, gives methods until they are overwritten
-      this.vel = Asteroids.Util.randomVec(10);
+      this.vel = Asteroids.Util.randomVec(5);
       this.color = asterArgs["color"] || Asteroid.COLOR;
       this.radius = 40 //asterArgs["radius"] || Asteroid.RADIUS;
       this.sprite = new Image();
