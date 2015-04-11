@@ -11,12 +11,12 @@
             this.draw
         };
         this.sprite.src = 'lib/ShumaGorath.png'; 
-        this.radius = 50; 
+        this.radius = 25; 
         this.bullet_compensation_radius = [28,28];
         this.img_center = [104,54]
         this.center = function () {
           return [this.pos[0]+104,this.pos[1]+54]
-        } //THIS IS NOT BEING MOVED
+        }
     };
 
     //Ship.RADIUS = 25;
@@ -74,19 +74,26 @@
     }
 
     Ship.prototype.fireBullet = function () {
-        var ship_position = this.pos.slice()
-        var ship_midpoint = [ship_position[0]+this.img_center[0],ship_position[1]+this.img_center[1]];
-        
-        var adjusted_bullet_compensation = [this.bullet_compensation_radius[0]*Math.cos(this.orientationRadians()),this.bullet_compensation_radius[1]*Math.sin(this.orientationRadians())];
-        var firing_pos = [ship_midpoint[0]+adjusted_bullet_compensation[0],ship_midpoint[1]+adjusted_bullet_compensation[1]];
+        setTimeout( function () {
+          this.can_fire = true;
+        }, 10)
       
-        this.game.bullets.push(new Asteroids.Bullet( {
-            vel: [15*Math.cos(this.orientationRadians()),15*Math.sin(this.orientationRadians())],
-            pos: firing_pos,
-            color: "#FF69B4",
-            game: this.game,
-            radius: 3
-        }));
+        if (this.can_fire) {
+          var ship_position = this.pos.slice()
+          var ship_midpoint = [ship_position[0]+this.img_center[0],ship_position[1]+this.img_center[1]];
+
+          var adjusted_bullet_compensation = [this.bullet_compensation_radius[0]*Math.cos(this.orientationRadians()),this.bullet_compensation_radius[1]*Math.sin(this.orientationRadians())];
+          var firing_pos = [ship_midpoint[0]+adjusted_bullet_compensation[0],ship_midpoint[1]+adjusted_bullet_compensation[1]];
+
+          this.game.bullets.push(new Asteroids.Bullet( {
+              vel: [15*Math.cos(this.orientationRadians()),15*Math.sin(this.orientationRadians())],
+              pos: firing_pos,
+              color: "#FF69B4",
+              game: this.game,
+              radius: 3
+          }));
+          this.can_fire = false
+        }
     };
 
     Ship.prototype.deccelerate = function () {

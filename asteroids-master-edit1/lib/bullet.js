@@ -7,7 +7,7 @@
         Asteroids.MovingObject.call(this, bulletArgs);
         this.sprite = new Image();
         this.sprite.onload = function () {
-          
+           
         };
         this.sprite.src = 'lib/'
         this.center = function () {
