@@ -42,8 +42,9 @@
     MovingObject.prototype.isCollidedWith = function (otherObject) {
         var x_dist = Math.abs(this.pos[0] - otherObject.pos[0]); //needs to be changed to refer to hitbox
         var y_dist = Math.abs(this.pos[1] - otherObject.pos[1]);
-        var dist = Math.floor(Math.sqrt(Math.pow(x_dist,2) + Math.pow(y_dist,2)));
+
         var radii_distance = this.radius + otherObject.radius;
+        var dist = this.absoluteDistance(otherObject)
         return (dist <= radii_distance)
     };
 
@@ -59,5 +60,18 @@
 //         game.remove(otherObject);
 //         game.remove(this);
     };
+
+    MovingObject.prototype.absoluteDistance = function (otherObject) {
+        var x_dist = Math.abs(this.pos[0] - otherObject.pos[0]); //needs to be changed to refer to hitbox
+        var y_dist = Math.abs(this.pos[1] - otherObject.pos[1]);
+        var dist = Math.floor(Math.sqrt(Math.pow(x_dist,2) + Math.pow(y_dist,2)));
+        return dist
+    },
+
+    MovingObject.prototype.vectorDistance = function (otherObject) {
+        var x_dist = Math.abs(this.center()[0] - otherObject.center()[0]);
+        var y_dist = Math.abs(this.center()[1] - otherObject.center()[1]);
+        return [x_dist,y_dist]
+    }
 
 })();

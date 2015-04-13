@@ -42,8 +42,8 @@
     GameView.prototype.detectMultiKeyHandlers = function (ship) {
       if(key.isPressed("left")) {ship.rotate(-5)};
       if(key.isPressed("right")) {ship.rotate(5)};
-      if(key.isPressed("up")) {ship.power([1,1])};
-      if(key.isPressed("down")) {ship.power([-1,-1])};
+      if(key.isPressed("up")) {ship.power([1,1]); return false};
+      if(key.isPressed("down")) {ship.power([-1,-1]); return false};
       if(key.isPressed("space")) {ship.fireBullet()};
       if(key.isPressed("s")) {ship.reset()};
     }

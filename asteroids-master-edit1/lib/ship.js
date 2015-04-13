@@ -103,7 +103,6 @@
       for (var i = 0; i < this.vel.length; i++) {
         this.vel[i] = Ship.deccelerateComp(this.vel[i]);
       }
-
     };
 
     Ship.deccelerateComp = function (velComp) { //needs to be fixed, one is too big because velocities can be fractional now

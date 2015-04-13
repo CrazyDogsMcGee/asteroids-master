@@ -1,4 +1,4 @@
-(function () { //
+(function () {
     if (typeof window.Asteroids === "undefined") {
         window.Asteroids = {};
     }
@@ -8,16 +8,14 @@
     }
 
     Asteroids.Util.inherits = function (ParentClass) {
-      var Surrogate = function () {}; //classic js inheritance. Make a surrogate
-      Surrogate.prototype = ParentClass.prototype; //the surrogate has all the parents methods
-      this.prototype = new Surrogate(); //an instance of a surrogate, that has all the parents methods
-      this.prototype.constructor = this; //is constructor a reserved word? The empty object you call it on becomes the constructor. But is this necessary? I thought this was implicit? Or maybe not, if the prototype also attempts to assign the constructor. If I interpret this correctly, taking out the last line will make novel construction logic inaccessible.
-
-      //The point is, all the new INSTANCE METHODS defined for any child ("this") will live in the surrogate instance. Attributes will still belong to the object itself. Inherited methods still live in the surrogate (and all its instances), but since the child protoype is 
-      // Cat.constructor === Cat  is true!
+      var Surrogate = function () {};
+      Surrogate.prototype = ParentClass.prototype;
+      this.prototype = new Surrogate();
+      this.prototype.constructor = this;
+      //this way, prototype methods are shared but not attributes
     };
 
-    Asteroids.Util.randomVec = function (length) { //magnitude
+    Asteroids.Util.randomVec = function (length) {
         var x = Math.floor(Math.random() * length);
         var y = Math.floor(Math.random() * length);
 
@@ -28,4 +26,22 @@
         return [x, y];
     };
 
-})();
+    Asteroids.Util.vectorAngle = function (v1,v2) {
+      var numerator = (v1[0]*v2[0])+(v1[1]*v2[1]);
+      var denomenator1 = Math.sqrt(Math.pow(v1[0],2)+Math.pow(v1[2],2));
+      var denomenator2 = Math.sqrt(Math.pow(v2[0],2)+Math.pow(v2[2],2));
+      var ratio = numerator/(denomenator1*denomenator1);
+      return Math.acos(ratio);
+    };
+
+    Asteroids.Util.comparison = function (val1,val2) {
+      if (val1 < val2) {
+        return 1
+      } else if (val1 > val2) {
+        return -1
+      } else {
+        return 0
+      }
+    }
+
+})(); //IFFE disperses all into javascript space

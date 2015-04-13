@@ -10,8 +10,13 @@
     <script src="lib/bullet.js"></script>
     <script src="lib/keymaster.js"></script>
   </head>
-  <body>
-    <canvas id="game-canvas"></canvas> <!-- Canvas element defined -->
+  <body style="background: black">
+    <section style="position: relative; height: 100%; width: 100%;text-align: center;">
+    <canvas id="game-canvas" style="height:80%;width:80%;margin:auto;display:block;"></canvas>
+    <p style="color:white; display:inline-block;">Help Shuma-Gorath repel interdimensional energy parasites from his domain!</p>
+    <br>
+    <p style="color:white; display:inline-block;">Press left/right arrow keys to rotate. Up/down to move. Space to fire</p>
+    </section>
     <script>
       var canvasEl = document.getElementById("game-canvas");
       canvasEl.height = Asteroids.Game.DIM_Y;
@@ -20,6 +25,10 @@
       var game = new Asteroids.Game(); //game is defined in the script, make sure no undefined things run yet!
       var gameView = new Asteroids.GameView(game, ctx);
       gameView.start();
+
+      document.onkeypress = function(event) {
+        return false
+      }
     </script>
   </body>
 </html>

@@ -28,24 +28,40 @@
     if (otherObject.constructor === Asteroids.Ship) {
       otherObject.relocate();
     } else if (otherObject.constructor === Asteroids.Asteroid) {
-
       if (!this._recent_change) {
-      this._recent_change = true
-      otherObject._recent_change = true
-      setTimeout(function () {
-        this._recent_change = false;
-        otherObject._recent_change = false;
-      }.bind(this), 500)
-      this.vel = [this.vel[0]*-1, this.vel[1]*-1];
-      otherObject.vel = [otherObject.vel[0]*-1, otherObject.vel[1]*-1];
+        this._recent_change = true
+        otherObject._recent_change = true
+        setTimeout(function () {
+          this._recent_change = false;
+          otherObject._recent_change = false;
+        }.bind(this), 200)
+        
+        // this.vel = [this.vel[0]*-1, this.vel[1]*-1];
+        // otherObject.vel = [otherObject.vel[0]*-1, otherObject.vel[1]*-1];
+        //what I want is vertical collisions to only reverse the y component
+        //horizontal collisions only reverse the x component
+        var dist = this.vectorDistance(otherObject);
+        
+        switch (Asteroids.Util.comparison(dist[0],dist[1])) {
+          case 1:
+            this.vel = [this.vel[0], -this.vel[1]];
+            otherObject.vel = [otherObject.vel[0], -otherObject.vel[1]];
+          case -1:
+            this.vel = [-this.vel[0], this.vel[1]];
+            otherObject.vel = [-otherObject.vel[0], otherObject.vel[1]];
+          default:
+            this.vel = [this.vel[0]*-1, this.vel[1]*-1];
+            otherObject.vel = [otherObject.vel[0]*-1, otherObject.vel[1]*-1];
+        }
       }
     }
   };
   
   Asteroid.prototype.isCollidedWith = function (otherObject) {
-    var x_dist = Math.abs(this.center()[0] - otherObject.center()[0]);
-    var y_dist = Math.abs(this.center()[1] - otherObject.center()[1]);
-    var dist = Math.floor(Math.sqrt(Math.pow(x_dist,2) + Math.pow(y_dist,2)));
+    // var x_dist = Math.abs(this.center()[0] - otherObject.center()[0]);
+    // var y_dist = Math.abs(this.center()[1] - otherObject.center()[1]);
+    // var dist = Math.floor(Math.sqrt(Math.pow(x_dist,2) + Math.pow(y_dist,2)));
+    var dist = this.absoluteDistance(otherObject)
     var radii_distance = this.radius + otherObject.radius;
     return (dist <= radii_distance)
   };
