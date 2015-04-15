@@ -10,7 +10,6 @@
     
     this.bkg = new Image(); //background Image()? Is this javascript or HTML5?
     this.bkg.onload = function () { //callback function after the resource is fetched
-      console.log(this.bkg);
       ctx.drawImage(this.bkg,0,0); //Does this onload need to be called every time? or just once
     }.bind(this);
     this.bkg.src = 'lib/stopchaos_dimension.jpg';
@@ -20,11 +19,15 @@
         pos: Game.randomPosition(),
         game: this
     });
+    
+    this.score = 0
+    this.lives = 5
+    
   };
 
   Game.DIM_X = 1200;
   Game.DIM_Y = 800;
-  Game.NUM_ASTEROIDS = 10;
+  Game.NUM_ASTEROIDS = 5;
 
   Game.prototype.addAsteroids = function () { //this doesn't regenerate asteroids should be "addInitialAsteroids"
       var _game = this
@@ -36,10 +39,12 @@
   Game.prototype.draw = function (ctx) {
       var objects = this.allObjects(); //refers to game, all objects
       ctx.clearRect(0, 0, Game.DIM_X, Game.DIM_Y);
+    
       ctx.drawImage(this.bkg,0,0);
       for (var i = 0; i < objects.length; i++) {
         objects[i].draw(ctx);
       }
+      this.renderStats();
   };
 
   Game.prototype.moveObjects = function () {
@@ -56,10 +61,10 @@
       return [x, y];
   };
 
-  Game.prototype.wrap = function (pos) {
+  Game.prototype.wrap = function (pos) { //need to fix this a bit to look at the sprite center rather than the upper-left position
     var x = (pos[0] > Game.DIM_X) ? (pos[0] - Game.DIM_X) : pos[0];
     var y = (pos[1] > Game.DIM_Y) ? (pos[1] - Game.DIM_Y) : pos[1];
-    x = (x < 0) ? (x + Game.DIM_X) : x; //remember, 0,0 is the upper left hand corner
+    x = (x < 0) ? (x + Game.DIM_X) : x; 
     y = (y < 0) ? (y + Game.DIM_Y) : y;
     return [x,y]
   };
@@ -101,6 +106,13 @@
                 pos[1] < 0 ||
                 pos[1] > Game.DIM_Y );
   };
+  
+  Game.prototype.renderStats = function () {
+    ctx.font="20px Georgia";
+    ctx.fillStyle="#FFF";
+    ctx.fillText("Score: "+this.score,0,15);
+    ctx.fillText("Lives: "+this.lives,0,50);
+  }
 
 
 

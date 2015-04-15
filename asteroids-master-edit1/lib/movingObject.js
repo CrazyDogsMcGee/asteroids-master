@@ -62,8 +62,8 @@
     };
 
     MovingObject.prototype.absoluteDistance = function (otherObject) {
-        var x_dist = Math.abs(this.pos[0] - otherObject.pos[0]); //needs to be changed to refer to hitbox
-        var y_dist = Math.abs(this.pos[1] - otherObject.pos[1]);
+        var x_dist = Math.abs(this.center()[0] - otherObject.center()[0]); //needs to be changed to refer to hitbox
+        var y_dist = Math.abs(this.center()[1] - otherObject.center()[1]);
         var dist = Math.floor(Math.sqrt(Math.pow(x_dist,2) + Math.pow(y_dist,2)));
         return dist
     },

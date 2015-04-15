@@ -1,15 +1,12 @@
-After the sprite starts moving, both components of velocity keep increasing, meaning that 0 is not being detected well...
+//1) Examine collisions, see if it needs to be adjusted
+1) Correct physics a little, if one object collides with another going in the same direction one should bounce and the other should continue
+2) Score and lives
+3) Bullet sprites
+4) add asteroids
+5) Chaos dimension power up
+6) enemy types and splittinh
+7) An enemy that fires slow bullets at you
+8) add music + sfx
+9) menu screen
 
-velocity keeps increasing when it shouldn't. being oriented in one direction SHOULD give a sin/cos of 0, but it doesnt...
-
-Problem with bullets...I cant just multiply on the position with the orientation because it's not a vector...I'll have to create a new vector
-based aroud the center or the drawing point that changes depending on the orientation
-
-the position of my image is always its upper left-hand corner.
-Something I could do instead is take the "center" of the image and then have a radius vector that I oculd apply the angle to.
-
-The background image callback is not being called at all. I can't reposition it at all.
-
-http://www.williammalone.com/articles/create-html5-canvas-javascript-sprite-animation/
-
-TO-DO: how to spawn asteroids from the sides? Expand canvas but limit field of view...
+X) add database for high scores (Is this possible without hosting a server somewhere?)

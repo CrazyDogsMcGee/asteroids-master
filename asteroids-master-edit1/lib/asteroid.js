@@ -14,7 +14,7 @@
       };
       this.sprite.src = 'lib/1725.png'
       this.center = function () {
-        return [this.pos[0]+ 40, this.pos[1] + 35]
+         return [this.pos[0]+ 40, this.pos[1] + 35]
       }
   };
 
@@ -27,6 +27,10 @@
   Asteroid.prototype.collideWith = function (otherObject) { //just set position the same as bullet exit for ship collision
     if (otherObject.constructor === Asteroids.Ship) {
       otherObject.relocate();
+      this.game.lives -= 1
+      if (game.lives == 0) {
+        window.game_over = true
+      }
     } else if (otherObject.constructor === Asteroids.Asteroid) {
       if (!this._recent_change) {
         this._recent_change = true
@@ -58,9 +62,6 @@
   };
   
   Asteroid.prototype.isCollidedWith = function (otherObject) {
-    // var x_dist = Math.abs(this.center()[0] - otherObject.center()[0]);
-    // var y_dist = Math.abs(this.center()[1] - otherObject.center()[1]);
-    // var dist = Math.floor(Math.sqrt(Math.pow(x_dist,2) + Math.pow(y_dist,2)));
     var dist = this.absoluteDistance(otherObject)
     var radii_distance = this.radius + otherObject.radius;
     return (dist <= radii_distance)

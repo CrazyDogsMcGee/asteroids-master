@@ -8,7 +8,7 @@
         this.orientation = 0
         this.sprite = new Image();
         this.sprite.onload = function () {
-            this.draw
+            this.draw();
         };
         this.sprite.src = 'lib/ShumaGorath.png'; 
         this.radius = 25; 
