@@ -4,11 +4,11 @@
     }
 
     var MovingObject = Asteroids.MovingObject = function (argObj) { //constructor function called from ship and asteroid
-        this.pos = argObj['pos']; //this is a good way to make an object, it is tolerant to extra arguments passed in from elsewhere, if you used .call to set attributes on child objects
+        this.pos = argObj['pos'];
+        this.game = argObj['game'];
         this.vel = argObj['vel'];
         this.radius = argObj['radius'];
         this.color = argObj['color'];
-        this.game = argObj['game'];
     };
 
     MovingObject.prototype.draw = function (ctx) { //function actually draws the shapes

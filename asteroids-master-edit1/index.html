@@ -22,13 +22,11 @@
       canvasEl.height = Asteroids.Game.DIM_Y;
       canvasEl.width = Asteroids.Game.DIM_X;
       var ctx = canvasEl.getContext("2d");
+      
       var game = new Asteroids.Game(); //game is defined in the script, make sure no undefined things run yet!
-      var gameView = new Asteroids.GameView(game, ctx);
+      var gameView = new Asteroids.GameView(game, ctx); //these are delegated to the window
       gameView.start();
 
-      document.onkeypress = function(event) {
-        return false
-      }
     </script>
   </body>
 </html>

@@ -4,9 +4,8 @@
   }
   
   Asteroid = Asteroids.Asteroid = function (asterArgs) { // takes in pos, game)
-      Asteroids.MovingObject.call(this, asterArgs); // calls parent constructor with pos, game, gives methods until they are overwritten
+      Asteroids.MovingObject.call(this, asterArgs); // calls parent constructor with pos, game
       this.vel = Asteroids.Util.randomVec(5);
-      this.color = asterArgs["color"] || Asteroid.COLOR;
       this.radius = 40
       this.sprite = new Image();
       this.sprite.onload = function () {
@@ -18,7 +17,7 @@
       }
   };
 
-  Asteroids.Util.inherits.call(Asteroid, Asteroids.MovingObject);
+  Asteroids.Util.inherits.call(Asteroid, Asteroids.MovingObject); 
   
   Asteroid.prototype.draw = function (ctx) {
     ctx.drawImage(this.sprite, 0, 0, 79, 86, this.pos[0], this.pos[1], 79, 86);
@@ -66,5 +65,9 @@
     var radii_distance = this.radius + otherObject.radius;
     return (dist <= radii_distance)
   };
+  
+  Asteroid.prototype.spawn = function () {
+    
+  }
 
 })();

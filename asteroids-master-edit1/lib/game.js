@@ -23,16 +23,24 @@
     this.score = 0
     this.lives = 5
     
+    setInterval( function () {
+      if (this.asteroids.length <= (Game.NUM_ASTEROIDS/2)) {
+        this.addAsteroids();
+        Game.NUM_ASTEROIDS += 1
+      }
+    }.bind(this), 1000);
+
   };
 
-  Game.DIM_X = 1200;
+  Game.DIM_X = 1200; //variables are restricted to scope on 'Game' var
   Game.DIM_Y = 800;
   Game.NUM_ASTEROIDS = 5;
 
   Game.prototype.addAsteroids = function () { //this doesn't regenerate asteroids should be "addInitialAsteroids"
       var _game = this
+      
       for (var i = 0; i < Game.NUM_ASTEROIDS; i++) {
-      this.asteroids.push(new Asteroid( { pos: Game.randomPosition(), game: _game } ));
+      this.asteroids.push(new Asteroid( { pos: Game.randomPosition(), game: _game } )); //only provides game and position
       }
   };
 
@@ -112,8 +120,6 @@
     ctx.fillStyle="#FFF";
     ctx.fillText("Score: "+this.score,0,15);
     ctx.fillText("Lives: "+this.lives,0,50);
-  }
-
-
+  };
 
 })();

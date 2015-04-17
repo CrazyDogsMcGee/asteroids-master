@@ -12,16 +12,20 @@
         var game_view = this
         var ship = this.game.ship
         
-        this.bindKeyHandlers();
+//         this.bindKeyHandlers();
         
-        setInterval( function () {
+        var mofongo = setInterval( function () {
             game.step();
             game.draw(ctx);
             game_view.detectMultiKeyHandlers(ship);
         }, 20);
+        
         setInterval( function () {
             this.game.ship.deccelerate();
         }, 100);
+      
+
+      
     };
 
     GameView.prototype.bindKeyHandlers = function () {
