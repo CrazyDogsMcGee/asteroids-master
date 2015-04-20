@@ -23,12 +23,12 @@
     this.score = 0
     this.lives = 5
     
-//  var calaloo = this.asteroidAdder = setInterval( function () {
-//       if (this.asteroids.length <= (Game.NUM_ASTEROIDS/2)) {
-//         this.addAsteroids();
-//         Game.NUM_ASTEROIDS += 1
-//       }
-//     }.bind(this), 1000);
+ var calaloo = this.asteroidAdder = setInterval( function () {
+      if (this.asteroids.length <= (Game.NUM_ASTEROIDS/2)) {
+        this.addAsteroids();
+        Game.NUM_ASTEROIDS += 1
+      }
+    }.bind(this), 1000);
 
   };
 
@@ -45,7 +45,7 @@
   };
 
   Game.prototype.draw = function (ctx) {
-      var objects = this.allObjects(); //refers to game, all objects
+      var objects = this.allObjects();
       ctx.clearRect(0, 0, Game.DIM_X, Game.DIM_Y);
     
       ctx.drawImage(this.bkg,0,0);
@@ -62,7 +62,7 @@
     }
   };
 
-  Game.randomPosition = function () {
+  Game.randomPosition = function () { //Fix this a little bit to avoid the ship
       var x = Math.floor(Math.random() * Game.DIM_X);
       var y = Math.floor(Math.random() * Game.DIM_Y);
 
@@ -144,11 +144,8 @@
     this.bullets = [];
     this.asteroids = [];
     
-    this.ship = new Asteroids.Ship( {
-        vel: [0, 0],
-        pos: Game.randomPosition(), //should be center
-        game: this
-    });
+    this.ship.vel = [0,0]
+    this.ship.pos = Game.randomPosition() //should be center
   }
 
 //   http://blog.sklambert.com/html5-canvas-game-html5-audio-and-finishing-touches/
