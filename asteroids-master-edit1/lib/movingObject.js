@@ -40,7 +40,6 @@
         this.pos[0] += this.vel[0];
         this.pos[1] += this.vel[1];
         if (this.isWrappable === true) {
-            debugger
             this.pos = this.game.wrap2(this.pos, this.img_center);
         } else {
             if (this.game.isOutOfBounds(this.pos)) {

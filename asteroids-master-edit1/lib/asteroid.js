@@ -29,21 +29,18 @@
       otherObject.relocate();
       this.game.lives -= 1
       if (game.lives == 0) {
-        window.game_over = true
+        gameView.gameOver();
       }
     } else if (otherObject.constructor === Asteroids.Asteroid) {
       if (!this._recent_change) {
         this._recent_change = true
         otherObject._recent_change = true
+        
         setTimeout(function () {
           this._recent_change = false;
           otherObject._recent_change = false;
         }.bind(this), 200)
         
-        // this.vel = [this.vel[0]*-1, this.vel[1]*-1];
-        // otherObject.vel = [otherObject.vel[0]*-1, otherObject.vel[1]*-1];
-        //what I want is vertical collisions to only reverse the y component
-        //horizontal collisions only reverse the x component
         var dist = this.vectorDistance(otherObject);
         
         switch (Asteroids.Util.comparison(dist[0],dist[1])) {

@@ -8,9 +8,9 @@
     this.addAsteroids();
     this.bullets = [];
     
-    this.bkg = new Image(); //background Image()? Is this javascript or HTML5?
-    this.bkg.onload = function () { //callback function after the resource is fetched
-      ctx.drawImage(this.bkg,0,0); //Does this onload need to be called every time? or just once
+    this.bkg = new Image();
+    this.bkg.onload = function () { 
+      ctx.drawImage(this.bkg,0,0);
     }.bind(this);
     this.bkg.src = 'lib/stopchaos_dimension.jpg';
     
@@ -21,15 +21,9 @@
     });
     
     this.score = 0
-    this.lives = 5
+    this.lives = 1
     
- var calaloo = this.asteroidAdder = setInterval( function () {
-      if (this.asteroids.length <= (Game.NUM_ASTEROIDS/2)) {
-        this.addAsteroids();
-        Game.NUM_ASTEROIDS += 1
-      }
-    }.bind(this), 1000);
-
+    this.asteroidAdder();
   };
 
   Game.DIM_X = 1200; //variables are restricted to scope on 'Game' var
@@ -42,6 +36,17 @@
       for (var i = 0; i < Game.NUM_ASTEROIDS; i++) {
       this.asteroids.push(new Asteroid( { pos: Game.randomPosition(), game: _game } )); //only provides game and position
       }
+  };
+  
+  Game.prototype.asteroidAdder = function () {
+    var fc = setInterval( function () {
+      if (this.asteroids.length <= (Game.NUM_ASTEROIDS/2)) {
+        this.addAsteroids();
+        Game.NUM_ASTEROIDS += 1;
+      }
+    }.bind(this), 1000);
+    
+    return fc
   };
 
   Game.prototype.draw = function (ctx) {
@@ -129,9 +134,9 @@
   };
   
   Game.prototype.renderStats = function () {
-    ctx.font="20px Georgia";
+    ctx.font="bold 30px Georgia";
     ctx.fillStyle="#FFF";
-    ctx.fillText("Score: "+this.score,0,15);
+    ctx.fillText("Score: "+this.score,0,20);
     ctx.fillText("Lives: "+this.lives,0,50);
   };
   

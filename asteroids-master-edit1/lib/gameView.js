@@ -25,16 +25,29 @@
             this.game.ship.deccelerate();
         }, 100);
       
+        var nguzo_saba = this.game.asteroidAdder();
 
-        this.threads = [mofongo,fufu]
+        this.threads = [mofongo,fufu,nguzo_saba];
     };
   
     GameView.prototype.stop = function () {
       this.threads.forEach(function (threadID) {
         clearInterval(threadID);
-      })
+      });
       
     };
+  
+    GameView.prototype.gameOver = function () {
+      this.stop(); 
+      
+      setTimeout(function () {
+      ctx.font='bold 30px "Bangers"';
+      ctx.textAlign = "center";
+      ctx.fillStyle="#FFF";
+      ctx.fillText("Final Score: "+game.score,600,400); //why does this clear? Does the draw function persist even after I stop it?
+      }, 500);
+    };
+  
 
     GameView.prototype.bindKeyHandlers = function () {
       key('up', function () {return false} ); 
@@ -54,7 +67,6 @@
       if(key.isPressed("s")) {ship.reset()};
       if(key.isPressed("q")) {ship.game.reset()};
       return false
-    }
-
+    };
 
 })();
