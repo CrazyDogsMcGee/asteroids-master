@@ -9,6 +9,13 @@
         this.vel = argObj['vel'];
         this.radius = argObj['radius'];
         this.color = argObj['color'];
+      
+        //attrs I might consider adding
+        this.img_center = []
+        this.sprite = new Image();
+        this.sprite.src = "";
+        this.antipos = function () {};
+        this.center = function () {};
     };
 
     MovingObject.prototype.draw = function (ctx) { //function actually draws the shapes
@@ -26,12 +33,15 @@
 
         ctx.fill();
     };
+  
+    MovingObject.prototype.draw2 = function () {};
 
     MovingObject.prototype.move = function () {
         this.pos[0] += this.vel[0];
         this.pos[1] += this.vel[1];
-        if (this.isWrappable === true) { //depends on wrappable.
-            this.pos = this.game.wrap(this.pos);
+        if (this.isWrappable === true) {
+            debugger
+            this.pos = this.game.wrap2(this.pos, this.img_center);
         } else {
             if (this.game.isOutOfBounds(this.pos)) {
                 this.game.remove(this);

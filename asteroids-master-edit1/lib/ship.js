@@ -12,11 +12,17 @@
         };
         this.sprite.src = 'lib/ShumaGorath.png'; 
         this.radius = 25; 
-        this.bullet_compensation_radius = [28,28];
-        this.img_center = [104,54]
+
+        this.img_center = [104,54]; // Adjusts hitbox for sprites, since they are offset from the normal position
+        this.bullet_compensation_radius = [28,28]; // Adjusts spawnpoint for bullets
+      
         this.center = function () {
           return [this.pos[0]+104,this.pos[1]+54]
         }
+        this.antipos = function () {
+          return [this.pos[0],this.pos[1]]
+        }
+        
         this._can_fire = true
         this._firing_rate = 500;
     };

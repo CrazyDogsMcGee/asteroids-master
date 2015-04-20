@@ -16,25 +16,25 @@
     
     this.ship = new Asteroids.Ship( {
         vel: [0, 0],
-        pos: Game.randomPosition(),
+        pos: Game.randomPosition(), //should be center
         game: this
     });
     
     this.score = 0
     this.lives = 5
     
-    setInterval( function () {
-      if (this.asteroids.length <= (Game.NUM_ASTEROIDS/2)) {
-        this.addAsteroids();
-        Game.NUM_ASTEROIDS += 1
-      }
-    }.bind(this), 1000);
+//  var calaloo = this.asteroidAdder = setInterval( function () {
+//       if (this.asteroids.length <= (Game.NUM_ASTEROIDS/2)) {
+//         this.addAsteroids();
+//         Game.NUM_ASTEROIDS += 1
+//       }
+//     }.bind(this), 1000);
 
   };
 
   Game.DIM_X = 1200; //variables are restricted to scope on 'Game' var
   Game.DIM_Y = 800;
-  Game.NUM_ASTEROIDS = 5;
+  Game.NUM_ASTEROIDS = 1;
 
   Game.prototype.addAsteroids = function () { //this doesn't regenerate asteroids should be "addInitialAsteroids"
       var _game = this
@@ -77,6 +77,19 @@
     return [x,y]
   };
 
+  Game.prototype.wrap2 = function (pos, img_center) { //need to fix this a bit to look at the sprite center rather than the upper-left position
+        //take the largest component of img_center, double it, use that
+    var max_dim = Math.max.apply(null, img_center);
+    max_dim *= 2
+    
+    var x = (pos[0] > Game.DIM_X) ? (pos[0] - Game.DIM_X - max_dim) : pos[0]; //these are okay
+    var y = (pos[1] > Game.DIM_Y) ? (pos[1] - Game.DIM_Y - max_dim) : pos[1];
+    
+    x = (x+max_dim < 0) ? (x + Game.DIM_X + max_dim) : x; //needs to be adjusted with "antipos"
+    y = (y+max_dim < 0) ? (y + Game.DIM_Y + max_dim) : y;
+    return [x,y]
+  };
+  
   Game.prototype.checkCollisions = function () { //performs 
     var objects = this.allObjects();
     for (var i = 0; i < objects.length; i++) {
@@ -121,5 +134,23 @@
     ctx.fillText("Score: "+this.score,0,15);
     ctx.fillText("Lives: "+this.lives,0,50);
   };
+  
+  Game.prototype.reset = function () {
+    //call on game over, this makes all traits reset to factory zero.
+    this.score = 0
+    this.lives = 5
+    Game.NUM_ASTEROIDS = 0;
+    
+    this.bullets = [];
+    this.asteroids = [];
+    
+    this.ship = new Asteroids.Ship( {
+        vel: [0, 0],
+        pos: Game.randomPosition(), //should be center
+        game: this
+    });
+  }
 
+//   http://blog.sklambert.com/html5-canvas-game-html5-audio-and-finishing-touches/
+  
 })();

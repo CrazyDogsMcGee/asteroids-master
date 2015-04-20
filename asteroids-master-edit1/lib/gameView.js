@@ -6,6 +6,7 @@
     var GameView = Asteroids.GameView = function (game, ctx) {
         this.game = game;
         this.ctx = ctx;
+        this.threads = []
     };
 
     GameView.prototype.start = function () {
@@ -20,13 +21,21 @@
             game_view.detectMultiKeyHandlers(ship);
         }, 20);
         
-        setInterval( function () {
+        var fufu = setInterval( function () {
             this.game.ship.deccelerate();
         }, 100);
       
 
-      
+        this.threads = [mofongo,fufu]
     };
+  
+    GameView.prototype.stop = function () {
+      this.threads.forEach(function (threadID) {
+        clearInterval(threadID);
+      })
+      
+      
+    }
 
     GameView.prototype.bindKeyHandlers = function () {
       key('up', function () {return false} ); 

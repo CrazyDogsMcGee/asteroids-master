@@ -11,9 +11,10 @@
       this.sprite.onload = function () {
         this.draw
       };
-      this.sprite.src = 'lib/1725.png'
+      this.sprite.src = 'lib/1725.png';
+      this.img_center = [40, 35];
       this.center = function () {
-         return [this.pos[0]+ 40, this.pos[1] + 35]
+         return [this.pos[0]+ 40, this.pos[1] + 35];
       }
   };
 
