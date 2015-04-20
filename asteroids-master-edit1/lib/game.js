@@ -136,8 +136,8 @@
   Game.prototype.renderStats = function () {
     ctx.font="bold 30px Georgia";
     ctx.fillStyle="#FFF";
-    ctx.fillText("Score: "+this.score,0,20);
-    ctx.fillText("Lives: "+this.lives,0,50);
+    ctx.fillText("Score: "+this.score,10,20);
+    ctx.fillText("Lives: "+this.lives,10,50);
   };
   
   Game.prototype.reset = function () {

@@ -13,7 +13,7 @@
         var game_view = this
         var ship = this.game.ship
         
-//         this.bindKeyHandlers();
+        key.unbind('r');
         
         var mofongo = setInterval( function () {
             game.step();
@@ -41,11 +41,23 @@
       this.stop(); 
       
       setTimeout(function () {
+        
+      ctx.save();
+        
       ctx.font='bold 30px "Bangers"';
       ctx.textAlign = "center";
       ctx.fillStyle="#FFF";
       ctx.fillText("Final Score: "+game.score,600,400); //why does this clear? Does the draw function persist even after I stop it?
-      }, 500);
+      ctx.fillText("Press the 'r' key to play again", 600,435);
+      
+      ctx.restore();
+      }, 21);
+      
+      game_View = this
+      key('r', function () {
+        game_View.game.reset();
+        game_View.start();
+      })
     };
   
 
