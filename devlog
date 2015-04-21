@@ -10,3 +10,49 @@
 9) menu screen
 
 X) add database for high scores (Is this possible without hosting a server somewhere?)
+
+
+a = function () {
+this.mofongo = "shit"
+}
+
+a.prototype.mofongoSetter = function (x) {
+this.mofongo = x
+}
+
+b = function () {
+this.mofo = "fuck"
+}
+
+b.prototype = new a();
+
+c = new b();
+
+d = new b();
+
+//////////////////////////////////////
+
+function Animal (name) {
+  this.name = name;
+};
+
+Animal.prototype.sayHello = function () {
+  console.log("Hello, my name is " + this.name);
+};
+
+function Dog (name) {
+  Animal.call(this, name)
+};
+// Hey wait, doesn't Animal need a name?
+Dog.prototype = new Animal();
+
+Dog.prototype.bark = function () {
+  console.log("Bark!");
+};
+
+// We're not even going to run `Animal`'s constructor, so why bother
+// passing the name?
+var dog1 = new Dog("James");
+
+// `this.name` is `undefined`
+dog1.sayHello();
